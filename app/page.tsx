@@ -50,10 +50,7 @@ export default function HomePage() {
       </div>
 
       {/* Title */}
-      <h1
-        className="font-cinzel text-4xl md:text-5xl font-bold text-amber-200 tracking-widest mt-8 mb-2 text-center"
-        style={{ textShadow: '0 2px 12px rgba(196, 81, 10, 0.6)' }}
-      >
+      <h1 className="font-cinzel text-4xl md:text-5xl font-bold text-amber-200 tracking-widest mt-8 mb-2 text-center title-shadow">
         Startspieler
       </h1>
       <p className="text-amber-400/70 text-sm tracking-widest mb-8 text-center uppercase">
@@ -93,14 +90,10 @@ export default function HomePage() {
       {/* Pick button */}
       <div className="w-full max-w-sm px-4 pb-8">
         <button
+          type="button"
           onClick={handlePick}
           disabled={!canPick}
-          className="w-full py-4 rounded-xl font-semibold text-lg tracking-wide transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
-          style={{
-            backgroundColor: canPick ? '#c4510a' : '#7a3d1a',
-            color: '#fff',
-            boxShadow: canPick ? '0 4px 20px rgba(196, 81, 10, 0.5)' : 'none',
-          }}
+          className="pick-btn w-full py-4 rounded-xl font-semibold text-lg tracking-wide transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Pick Starting Player
         </button>

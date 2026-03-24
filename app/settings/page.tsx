@@ -49,10 +49,7 @@ export default function SettingsPage() {
             <path d="M19 12H5M12 5l-7 7 7 7" />
           </svg>
         </Link>
-        <h1
-          className="font-cinzel text-2xl font-bold text-amber-200 tracking-widest"
-          style={{ textShadow: '0 1px 8px rgba(196, 81, 10, 0.4)' }}
-        >
+        <h1 className="font-cinzel text-2xl font-bold text-amber-200 tracking-widest subtitle-shadow">
           Players
         </h1>
       </div>
@@ -66,33 +63,18 @@ export default function SettingsPage() {
         )}
 
         {players.map((player) => (
-          <div
-            key={player.id}
-            className="flex flex-col gap-3 rounded-xl p-4"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(196, 81, 10, 0.2)',
-            }}
-          >
+          <div key={player.id} className="player-row flex flex-col gap-3 rounded-xl p-4">
             <div className="flex items-center gap-3">
               {/* Checkbox */}
               <button
+                type="button"
                 onClick={() => toggleSelected(player.id)}
-                aria-label={player.selected ? 'Deselect player' : 'Select player'}
-                className="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors"
-                style={{
-                  borderColor: player.selected ? '#c4510a' : 'rgba(196, 81, 10, 0.4)',
-                  backgroundColor: player.selected ? '#c4510a' : 'transparent',
-                }}
+                aria-label={player.selected ? `Deselect ${player.name}` : `Select ${player.name}`}
+                aria-pressed={player.selected ? 'true' : 'false'}
+                className={`checkbox-btn${player.selected ? ' checkbox-checked' : ''} flex-shrink-0 w-5 h-5 rounded flex items-center justify-center transition-colors`}
               >
                 {player.selected && (
-                  <svg
-                    width="10"
-                    height="8"
-                    viewBox="0 0 10 8"
-                    fill="none"
-                    aria-hidden="true"
-                  >
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true">
                     <path
                       d="M1 4L3.5 6.5L9 1"
                       stroke="white"
@@ -107,7 +89,13 @@ export default function SettingsPage() {
               {/* Name (editable) */}
               <div className="flex-1 min-w-0">
                 {editingId === player.id ? (
+                  <label className="sr-only" htmlFor={`player-name-${player.id}`}>
+                    Player name
+                  </label>
+                ) : null}
+                {editingId === player.id ? (
                   <input
+                    id={`player-name-${player.id}`}
                     type="text"
                     value={editingName}
                     onChange={(e) => setEditingName(e.target.value)}
@@ -119,11 +107,13 @@ export default function SettingsPage() {
                         setEditingName('')
                       }
                     }}
+                    placeholder="Player name"
                     autoFocus
                     className="w-full bg-transparent border-b border-amber-400/60 text-amber-100 focus:outline-none focus:border-amber-400 pb-0.5"
                   />
                 ) : (
                   <button
+                    type="button"
                     onClick={() => startEdit(player.id, player.name)}
                     className="text-amber-100 font-medium text-left w-full hover:text-white transition-colors truncate"
                     title="Click to rename"
@@ -135,6 +125,7 @@ export default function SettingsPage() {
 
               {/* Delete button */}
               <button
+                type="button"
                 onClick={() => deletePlayer(player.id)}
                 aria-label={`Delete ${player.name}`}
                 className="flex-shrink-0 text-amber-400/50 hover:text-red-400 transition-colors p-1 rounded"
@@ -171,13 +162,9 @@ export default function SettingsPage() {
       {/* Add player button */}
       <div className="mt-6 pb-4">
         <button
+          type="button"
           onClick={addPlayer}
-          className="w-full py-3 rounded-xl font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-2"
-          style={{
-            backgroundColor: 'rgba(196, 81, 10, 0.15)',
-            border: '1px dashed rgba(196, 81, 10, 0.5)',
-            color: '#f59e0b',
-          }}
+          className="add-player-btn w-full py-3 rounded-xl font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
