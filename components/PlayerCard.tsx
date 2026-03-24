@@ -71,8 +71,8 @@ export function PlayerCard({ player, flipped, isWinner }: PlayerCardProps) {
               <div className="w-16 h-16 rounded-full border-2 border-secondary p-1">
                 <div className="w-full h-full rounded-full bg-secondary/20 flex items-center justify-center">
                   <span
-                    className="material-symbols-outlined text-secondary"
-                    style={{ fontSize: '32px', fontVariationSettings: "'FILL' 1" }}
+                    className="material-symbols-outlined"
+                    style={{ fontSize: '32px', fontVariationSettings: "'FILL' 1", color: TM_COLORS[player.color] }}
                   >
                     person
                   </span>
@@ -86,7 +86,7 @@ export function PlayerCard({ player, flipped, isWinner }: PlayerCardProps) {
             </div>
 
             {/* Name */}
-            <h2 className="font-headline text-xl font-extrabold text-on-surface tracking-tight text-center leading-tight">
+            <h2 className="font-headline text-2xl font-extrabold text-on-surface tracking-tight text-center leading-tight">
               {player.name}
             </h2>
 
@@ -102,20 +102,6 @@ export function PlayerCard({ player, flipped, isWinner }: PlayerCardProps) {
               <span className="font-label text-[9px] font-bold text-secondary tracking-widest">
                 COLOR: {colorName}
               </span>
-            </div>
-
-            {/* Stats grid */}
-            <div className="w-full grid grid-cols-3 gap-1.5">
-              {[
-                ['Agility', '88'],
-                ['Tactics', '94'],
-                ['Focus', '72'],
-              ].map(([label, val]) => (
-                <div key={label} className="bg-surface-container-high p-2 text-center">
-                  <p className="font-label text-[8px] opacity-50 uppercase mb-0.5">{label}</p>
-                  <p className="font-headline text-sm font-bold text-primary">{val}%</p>
-                </div>
-              ))}
             </div>
 
             {/* Progress bar */}
