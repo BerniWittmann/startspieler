@@ -93,6 +93,7 @@ export default function SettingsPage() {
           {players.map((player) => (
             <div
               key={player.id}
+              data-testid="player-row"
               className={`bg-surface-container p-4 flex flex-col gap-4 border-l-2 ${
                 player.selected ? 'border-secondary' : 'border-primary/40'
               }`}
