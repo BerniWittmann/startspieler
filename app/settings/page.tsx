@@ -28,7 +28,7 @@ export default function SettingsPage() {
   const selectedCount = players.filter((p) => p.selected).length
 
   return (
-    <div className="relative flex flex-col min-h-dvh bg-background overflow-hidden">
+    <div className="relative flex flex-col min-h-dvh bg-background overflow-x-hidden">
       {/* Ambient background */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary/10 blur-[120px] rounded-full pointer-events-none" />
