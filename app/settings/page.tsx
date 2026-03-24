@@ -67,16 +67,16 @@ export default function SettingsPage() {
               <span className="font-label text-on-surface-variant text-[10px] tracking-widest uppercase">
                 Slots Occupied
               </span>
-              <p className="font-headline text-xl text-secondary font-bold">
-                {selectedCount}/{players.length}
+              <p className={`font-headline text-xl font-bold ${selectedCount > 5 ? 'text-error' : 'text-secondary'}`}>
+                {selectedCount}/5
               </p>
             </div>
           </div>
           <div className="h-1 bg-surface-container-highest w-full overflow-hidden">
             <div
-              className="h-full bg-secondary transition-all duration-300"
+              className={`h-full transition-all duration-300 ${selectedCount > 5 ? 'bg-error' : 'bg-secondary'}`}
               style={{
-                width: players.length > 0 ? `${(selectedCount / players.length) * 100}%` : '0%',
+                width: `${Math.min((selectedCount / 5) * 100, 100)}%`,
               }}
             />
           </div>
