@@ -12,97 +12,127 @@ export default function HomePage() {
   const [winner, setWinner] = useState<Player | null>(null)
 
   function handlePick() {
-    // Reset first so animation replays if already showing a winner
     setWinner(null)
-    // Use setTimeout to allow state reset to propagate before setting new winner
     setTimeout(() => {
       setWinner(pickRandom(selectedPlayers))
     }, 50)
   }
 
+  function handleReset() {
+    setWinner(null)
+  }
+
   const canPick = selectedPlayers.length >= 2
 
   return (
-    <main className="flex flex-col items-center min-h-dvh px-4 py-8 relative">
-      {/* Settings link */}
-      <div className="absolute top-4 right-4">
-        <Link
-          href="/settings"
-          aria-label="Settings"
-          className="text-amber-200 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
+    <div className="relative flex flex-col min-h-dvh bg-background overflow-hidden">
+      {/* Ambient background */}
+      <div className="absolute inset-0 grid-bg pointer-events-none" />
+      <div className="absolute inset-0 hud-scanline pointer-events-none opacity-50" />
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary/10 blur-[120px] rounded-full pointer-events-none" />
+
+      {/* Fixed header */}
+      <header className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl">
+        <div className="flex justify-between items-center px-6 h-16">
+          <button
+            className="text-primary-container hover:bg-primary-container/10 transition-colors p-2 active:scale-95 duration-150"
+            aria-label="Menu"
           >
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-          </svg>
-        </Link>
-      </div>
+            <span className="material-symbols-outlined">grid_view</span>
+          </button>
+          <h1 className="font-headline text-xl font-bold text-primary-container tracking-[0.2em] uppercase">
+            STARTSPIELER
+          </h1>
+          <Link
+            href="/settings"
+            aria-label="Settings"
+            className="text-primary-container hover:bg-primary-container/10 transition-colors p-2 active:scale-95 duration-150"
+          >
+            <span className="material-symbols-outlined">settings</span>
+          </Link>
+        </div>
+        <div className="bg-outline-variant h-px opacity-20" />
+      </header>
 
-      {/* Title */}
-      <h1 className="font-cinzel text-4xl md:text-5xl font-bold text-amber-200 tracking-widest mt-8 mb-2 text-center title-shadow">
-        Startspieler
-      </h1>
-      <p className="text-amber-400/70 text-sm tracking-widest mb-8 text-center uppercase">
-        Terraforming Mars
-      </p>
-
-      {/* Card area */}
-      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-2xl">
-        {selectedPlayers.length === 0 ? (
-          <div className="text-center py-16 px-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="64"
-              height="64"
-              viewBox="0 0 64 64"
-              className="mx-auto opacity-40 mb-4"
-              aria-hidden="true"
-            >
-              <circle cx="32" cy="32" r="30" fill="#c0392b" />
-              <circle cx="22" cy="24" r="5" fill="#a93226" opacity="0.7" />
-              <circle cx="42" cy="38" r="4" fill="#a93226" opacity="0.6" />
-              <circle cx="32" cy="44" r="4" fill="#a93226" opacity="0.5" />
-            </svg>
-            <p className="text-amber-200/60 text-lg">
-              Add players in{' '}
-              <Link href="/settings" className="text-amber-400 underline hover:text-amber-200">
-                Settings
-              </Link>{' '}
-              to begin
+      {/* Main content */}
+      <main className="flex-1 flex flex-col items-center justify-center px-6 pt-20 pb-10 relative">
+        {/* Status HUD */}
+        <div className="w-full max-w-sm mb-8 flex justify-between items-end border-l-2 border-secondary/30 pl-4">
+          <div>
+            <p className="font-label text-[10px] tracking-widest text-secondary uppercase opacity-70">
+              Selection Protocol
             </p>
+            <p className="font-headline text-lg font-bold text-on-surface">
+              {winner ? 'PROTOCOL COMPLETE' : 'STAND BY'}
+            </p>
+          </div>
+          {winner && (
+            <div className="text-right">
+              <p className="font-label text-[10px] tracking-widest text-primary uppercase opacity-70">
+                Starting Player
+              </p>
+              <p className="font-headline text-xs text-primary/80 uppercase tracking-wide">
+                {winner.name}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Card area */}
+        {selectedPlayers.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="w-16 h-16 border border-secondary/30 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="material-symbols-outlined text-secondary/50 text-3xl">group</span>
+            </div>
+            <p className="text-on-surface-variant text-sm font-label tracking-widest uppercase opacity-60 mb-2">
+              No players configured
+            </p>
+            <Link href="/settings" className="text-secondary text-sm underline">
+              Configure players
+            </Link>
           </div>
         ) : (
           <CardFlipReveal players={selectedPlayers} winner={winner} />
         )}
-      </div>
 
-      {/* Pick button */}
-      <div className="w-full max-w-sm px-4 pb-8">
-        <button
-          type="button"
-          onClick={handlePick}
-          disabled={!canPick}
-          className="pick-btn w-full py-4 rounded-xl font-semibold text-lg tracking-wide transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          Pick Starting Player
-        </button>
-        {selectedPlayers.length === 1 && (
-          <p className="text-amber-400/60 text-sm text-center mt-2">
-            Need at least 2 selected players
+        {/* CTA button */}
+        <div className="w-full max-w-sm mt-8">
+          {winner ? (
+            <button
+              type="button"
+              onClick={handleReset}
+              className="w-full bg-surface-container-high text-on-surface font-headline font-bold text-base py-4 rounded-sm tracking-widest uppercase transition-all active:scale-[0.98] border border-outline-variant/30 flex items-center justify-center gap-3"
+            >
+              <span className="material-symbols-outlined text-xl">refresh</span>
+              RESET PROTOCOL
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handlePick}
+              disabled={!canPick}
+              className="w-full bg-primary-container hover:bg-primary text-on-primary-container font-headline font-bold text-base py-5 rounded-sm transition-all duration-300 active:scale-[0.98] shadow-[0_0_20px_rgba(206,131,57,0.3)] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none tracking-widest uppercase"
+            >
+              <span
+                className="material-symbols-outlined text-xl"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                play_arrow
+              </span>
+              PICK STARTING PLAYER
+            </button>
+          )}
+          <p className="text-center mt-3 font-label text-[10px] text-on-surface-variant tracking-widest uppercase opacity-50">
+            {winner
+              ? 'Terminating session'
+              : selectedPlayers.length === 1
+                ? 'Need at least 2 selected players'
+                : 'System Ready for Allocation'}
           </p>
-        )}
-      </div>
-    </main>
+        </div>
+      </main>
+
+    </div>
   )
 }

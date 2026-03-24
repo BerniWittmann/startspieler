@@ -16,13 +16,14 @@ export function TmColorPicker({ value, onChange }: TmColorPickerProps) {
           type="button"
           onClick={() => onChange(color)}
           title={color}
-          className="w-7 h-7 rounded-full transition-all duration-150 hover:scale-110 focus:outline-none"
+          className="w-6 h-6 rounded-full transition-all duration-150 hover:scale-110 focus:outline-none"
           style={{
             backgroundColor: TM_COLORS[color],
+            opacity: value === color ? 1 : 0.5,
             boxShadow:
               value === color
-                ? '0 0 0 2px #fff, 0 0 0 4px ' + TM_COLORS[color]
-                : '0 1px 3px rgba(0,0,0,0.4)',
+                ? `0 0 0 2px #131313, 0 0 0 4px #48dcc3`
+                : 'inset 0 0 0 1px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.4)',
           }}
           aria-pressed={value === color ? 'true' : 'false'}
           aria-label={`Select ${color} color`}

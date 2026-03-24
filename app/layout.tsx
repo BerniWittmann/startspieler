@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
-import { Cinzel, Exo_2 } from 'next/font/google'
+import { Space_Grotesk, Manrope } from 'next/font/google'
 import './globals.css'
 
-const cinzel = Cinzel({
-  variable: '--font-cinzel',
-  subsets: ['latin'],
-  weight: ['400', '700', '900'],
-})
-
-const exo2 = Exo_2({
-  variable: '--font-exo2',
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
+})
+
+const manrope = Manrope({
+  variable: '--font-manrope',
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
 })
 
 export const metadata: Metadata = {
@@ -25,8 +25,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${exo2.variable} h-full`}>
-      <body className="min-h-dvh flex flex-col">{children}</body>
+    <html lang="en" className={`dark ${spaceGrotesk.variable} ${manrope.variable} h-full`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-dvh flex flex-col bg-background text-on-surface font-body">
+        {children}
+      </body>
     </html>
   )
 }

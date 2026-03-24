@@ -5,7 +5,7 @@ export const TM_COLORS: Record<TmColor, string> = {
   green: '#27ae60',
   blue: '#2980b9',
   yellow: '#f39c12',
-  black: '#2c2c2c',
+  black: '#5a5a5a',
 }
 
 export const TM_COLOR_KEYS: TmColor[] = ['red', 'green', 'blue', 'yellow', 'black']
